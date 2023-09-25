@@ -21,8 +21,7 @@
 # include <sys/wait.h>
 # include "libft/libft.h"
 
-int open_file(char *file, int in_out);
-char    *getpath(char *cmd, char **env);
-
-
+char	*getpath(char *cmd, char **env);
+int		open_file(char *file, int in_out);
+void	free_tab(char **tab);
 #endif
