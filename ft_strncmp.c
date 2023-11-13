@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thlefebv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 17:04:54 by thlefebv          #+#    #+#             */
-/*   Updated: 2023/04/20 17:04:58 by thlefebv         ###   ########.fr       */
+/*   Created: 2023/04/14 10:06:44 by thlefebv          #+#    #+#             */
+/*   Updated: 2023/04/14 10:06:47 by thlefebv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "pipex.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned char	*m;
-	unsigned char	*k;
-	size_t			i;
+	size_t	i;
 
 	i = 0;
-	m = (unsigned char *)s1;
-	k = (unsigned char *)s2;
-	while (i < n)
+	if (n == 0)
+		return (0);
+	while (i < n && s1[i] != '\0')
 	{
-		if (m[i] != k[i])
-			return (m[i] - k[i]);
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
+	if (s2[i] != '\0' && i < n)
+		return (-1);
 	return (0);
 }

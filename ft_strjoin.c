@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thlefebv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/19 16:47:44 by thlefebv          #+#    #+#             */
-/*   Updated: 2023/04/19 16:47:49 by thlefebv         ###   ########.fr       */
+/*   Created: 2023/04/24 12:16:44 by thlefebv          #+#    #+#             */
+/*   Updated: 2023/04/24 12:16:48 by thlefebv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "pipex.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	size_t		i;
-	char		*dest1;
-	const char	*src1;
+	char	*tab;	
+	size_t	index;
+	size_t	i;
 
-	dest1 = (char *) dest;
-	src1 = (char *) src;
 	i = 0;
-	if (!dest && !src)
+	index = 0;
+	tab = (char *) malloc ((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof (char));
+	if (!tab)
 		return (NULL);
-	while (i != n)
+	while (s1[index] != '\0')
 	{
-		dest1[i] = src1[i];
+		tab[index] = s1[index];
+		index++;
+	}
+	while (s2[i] != '\0')
+	{
+		tab[index + i] = s2[i];
 		i++;
 	}
-	return (dest1);
+	tab[index + i] = '\0';
+	return (tab);
 }

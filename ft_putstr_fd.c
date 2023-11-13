@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thlefebv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/14 10:06:44 by thlefebv          #+#    #+#             */
-/*   Updated: 2023/04/14 10:06:47 by thlefebv         ###   ########.fr       */
+/*   Created: 2023/04/25 09:55:21 by thlefebv          #+#    #+#             */
+/*   Updated: 2023/04/25 09:55:25 by thlefebv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "pipex.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_putstr_fd(char *s, int fd)
 {
-	size_t	i;
+	int	index;
 
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (i < n && s1[i] != '\0')
+	index = 0;
+	while (s[index] != '\0')
 	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
+		write (fd, &s[index], 1);
+		index++;
 	}
-	if (s2[i] != '\0' && i < n)
-		return (-1);
-	return (0);
 }

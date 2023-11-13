@@ -12,18 +12,21 @@
 NAME = pipex
 
 FICHIERS_C = pipex.c\
-	     utils.c\
-	     
-LIB = libft/libft.a
+	    	 utils.c\
+			 ft_putstr_fd.c\
+			 ft_split.c\
+			 ft_strdup.c\
+			 ft_strjoin.c\
+			 ft_strncmp.c\
+			 ft_strlen.c\
 
 OBJS = $(patsubst %.c,%.o,$(FICHIERS_C))
 
-CFLAGS= -Wall -Werror -Wextra -g
+CFLAGS= -Wall -Werror -Wextra -g3
 
 CC = cc
-${NAME} : ${OBJS}
-	make all -C libft
-	$(CC) $(CFLAGS)  ${OBJS} $(LIB) -o $(NAME)
+${NAME} : ${OBJS} 
+	$(CC) $(CFLAGS)  ${OBJS} -o $(NAME)
 
 .c.o :
 	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
@@ -31,13 +34,10 @@ ${NAME} : ${OBJS}
 all : ${NAME}
 
 clean:
-	make clean -C libft
 	rm -f ${OBJS}
 
 fclean: clean
-	make fclean -C libft
 	rm -f ${NAME}
 
 re: fclean all
-
 .SILENT:

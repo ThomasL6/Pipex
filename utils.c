@@ -16,9 +16,9 @@ int	open_file(char *file, int in_out)
 	int	fd;
 
 	if (in_out == 0)
-		fd = open(file, O_RDONLY);
+		fd = open(file, O_RDONLY, 0644);
 	if (in_out == 1)
-		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC);
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		perror(file);
@@ -64,16 +64,19 @@ char	*get_my_env(char *name, char **env)
 	return (NULL);
 }
 
-char	*getpath(char *cmd, char **env)
+char	*getpath(char *cmd, char **env, int i)
 {
-	int		i;
 	char	**path;
 	char	*str_path;
 	char	**s_cmd;
 	char	*exec;
+	char	*strenv;
 
-	i = 0;
-	path = ft_split(get_my_env("PATH", env), ':');
+	if (access(cmd, F_OK | X_OK) == 0)
+		return (cmd);
+	strenv = get_my_env("PATH=", env);
+	path = ft_split(strenv, ':');
+	free(strenv);
 	s_cmd = ft_split(cmd, ' ');
 	while (path && path[++i])
 	{
@@ -81,14 +84,10 @@ char	*getpath(char *cmd, char **env)
 		exec = ft_strjoin(str_path, s_cmd[0]);
 		free(str_path);
 		if (access(exec, F_OK | X_OK) == 0)
-		{
-			free_tab(s_cmd);
 			return (exec);
-		}
 		free(exec);
 	}
 	free_tab(s_cmd);
 	free_tab(path);
-	ft_putstr_fd("Error : command not found", 2);
-	exit (0);
+	return (NULL);
 }

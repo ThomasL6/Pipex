@@ -17,11 +17,22 @@ int	routin_son(char *cmd, char **env, int input, int output)
 	char	**cmds;
 
 	cmds = ft_split(cmd, ' ');
-	path = getpath(cmds[0], env);
+	path = getpath(*cmds, env, 0);
 	dup2(input, 0);
 	dup2(output, 1);
+	if (path == NULL)
+	{
+		ft_putstr_fd("Error : command\n", 2);
+		free(path);
+		free_tab(cmds);
+		exit(0);
+	}
 	if (execve(path, cmds, env) == -1)
+	{
 		perror("execve");
+		free(path);
+		free_tab(cmds);
+	}
 	exit(0);
 }
 
@@ -46,10 +57,26 @@ void	pipex(char **cmd, char **env, int file1, int file2)
 
 int	main(int argc, char **argv, char **env)
 {
-	if (argc == 5)
+	int	i;
+
+	i = 0;
+	if (argc != 5)
+		ft_putstr_fd("Error : arguments\n", 2);
+	else if (argc == 5)
 	{
-		pipex(argv, env, open_file(argv[1], 0), open_file(argv[4], 1));
+		while (argv && (argv[2][i] == ' ' || argv[3][i] == ' '))
+		{
+			i++;
+			if ((argv[2][i] == '\0') || (argv[3][i] == '\0'))
+			{
+				ft_putstr_fd("Error : invalid command\n", 2);
+				return (1);
+			}
+		}
+		if (ft_strlen(argv[2]) == 0 || ft_strlen(argv[3]) == 0)
+			ft_putstr_fd("Error : invalid command\n", 2);
+		else
+			pipex(argv, env, open_file(argv[1], 0), open_file(argv[4], 1));
 	}
-	else
-		ft_putstr_fd("Error : not enough arguments", 2);
+	return (0);
 }

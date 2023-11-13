@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thlefebv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 16:46:07 by thlefebv          #+#    #+#             */
-/*   Updated: 2023/04/12 16:46:11 by thlefebv         ###   ########.fr       */
+/*   Created: 2023/04/21 14:12:27 by thlefebv          #+#    #+#             */
+/*   Updated: 2023/04/21 14:12:30 by thlefebv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "pipex.h"
 
-int	ft_tolower(int c)
+char	*ft_strdup(const char *s)
 {
-	if (c >= 65 && c <= 90)
-		c = c + 32;
-	return (c);
+	int		i;
+	int		j;
+	char	*k;
+
+	j = 0;
+	i = ft_strlen(s);
+	k = (char *)malloc (sizeof(char) * (i + 1));
+	if (k == NULL)
+		return (NULL);
+	while (s[j] != '\0')
+	{
+		k[j] = s[j];
+		j++;
+	}
+	k[j] = '\0';
+	return (k);
 }

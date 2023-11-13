@@ -9,7 +9,7 @@
 /*   Updated: 2023/04/26 09:59:52 by thlefebv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "pipex.h"
 
 int	ft_charset(char c, char charset)
 {
@@ -80,6 +80,6 @@ char	**ft_split(char const *str, char charset)
 		str = str + j;
 		i++;
 	}
-	tab[i] = 0;
+	tab[i] = NULL;
 	return (tab);
 }
